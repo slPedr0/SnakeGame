@@ -147,7 +147,7 @@ window.title("SNAKE GAME")
 window.resizable(False, False)
 window.config(bg="black")
 
-score_label = Label(window, text=f"Score: {score}",font=("Roboto", 40))
+score_label = Label(window, text=f"Score: {score}",font=("Roboto", 40), fg="#FFFFFF", bg="#000000")
 
 canvas = Canvas(window, bg=BACKGROUND_COLOR, height=GAME_HEIGHT, width=GAME_WIDTH)
 
