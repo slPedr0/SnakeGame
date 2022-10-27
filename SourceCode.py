@@ -43,6 +43,15 @@ class Food():
         canvas.create_oval(x, y, x+SPACE_SIZE, y+SPACE_SIZE, fill=FOOD_COLOR, tag = "food")
 
 def start():
+    game_name.pack_forget()
+    start_button.pack_forget()
+    score_label.pack()
+    canvas.pack()
+    window.update()
+    window.geometry(f"{GAME_WIDTH}x{GAME_HEIGHT+score_label.winfo_height()}+{int((SCREEN_RESOLUTION[0]-GAME_WIDTH)/2)}+{int((SCREEN_RESOLUTION[1]-(GAME_HEIGHT+score_label.winfo_height()))/2)}")
+    play()
+
+def play():
     global score 
     global direction
     canvas.delete(ALL)
@@ -136,16 +145,22 @@ direction = INITIAL_DIRECTION
 window = Tk()
 window.title("SNAKE GAME")
 window.resizable(False, False)
+window.config(bg="black")
 
 score_label = Label(window, text=f"Score: {score}",font=("Roboto", 40))
-score_label.pack()
 
 canvas = Canvas(window, bg=BACKGROUND_COLOR, height=GAME_HEIGHT, width=GAME_WIDTH)
-canvas.pack()
 
-playagain_button = Button(window, text="Play Again", font=("Roboto", 20), bg="#AAAAAA", border=2, command= start)
+playagain_button = Button(window, text="Play Again", font=("Roboto", 20), bg="#AAAAAA", border=2, command= play)
+
+game_name = Label(window, text="Snake Game", bg="black",fg= "green", font=("Roboto", 50), pady=100, padx=20)
+game_name.pack()
+
+start_button = Button(window, text="Play", font=("Roboto", 20), bg="#AAAAAA", width=10, border=2, command= start)
+start_button.pack()
 
 window.update()
+window.geometry(f"{window.winfo_width()}x{window.winfo_width()}+{int((SCREEN_RESOLUTION[0]-window.winfo_width())/2)}+{int((SCREEN_RESOLUTION[1]-(window.winfo_width()))/2)}")
 
 # KEY BINDING
 window.bind("<w>", lambda event: change_direction("up"))
@@ -159,9 +174,4 @@ window.bind("<Right>", lambda event: change_direction("right"))
 
 # Window position - 1920x1080 MONITOR
 
-window.geometry(f"{GAME_WIDTH}x{GAME_HEIGHT+score_label.winfo_height()}+{int(SCREEN_RESOLUTION[0]/2-GAME_WIDTH/2)}+{int((SCREEN_RESOLUTION[1]-(GAME_HEIGHT+score_label.winfo_height()))/2)}")
-
-# RUN
-
-start()
 window.mainloop()
